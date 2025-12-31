@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Sidebar from "@/components/layout/Sidebar";
 
 const poppins = Poppins({
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans antialiased`}>
-        <Sidebar>
-          {children}
-        </Sidebar>
+        <AuthProvider>
+          <Sidebar>
+            {children}
+          </Sidebar>
+        </AuthProvider>
       </body>
     </html>
   );
