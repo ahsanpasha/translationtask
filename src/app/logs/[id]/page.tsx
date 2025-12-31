@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { use } from "react";
 
 const CallLogs = dynamic(() => import("@/components/dashboard/CallLogs"), {
     loading: () => (
@@ -12,6 +12,7 @@ const CallLogs = dynamic(() => import("@/components/dashboard/CallLogs"), {
     ssr: false,
 });
 
-export default function Page({ params }: { params: { id: string } }) {
-    return <CallLogs id={params.id} />;
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
+    return <CallLogs id={id} />;
 }

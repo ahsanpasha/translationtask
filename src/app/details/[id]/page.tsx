@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { use } from "react";
 
 const RecordDetails = dynamic(() => import("@/components/dashboard/RecordDetails"), {
     loading: () => (
@@ -12,6 +12,7 @@ const RecordDetails = dynamic(() => import("@/components/dashboard/RecordDetails
     ssr: false,
 });
 
-export default function Page({ params }: { params: { id: string } }) {
-    return <RecordDetails id={params.id} />;
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
+    return <RecordDetails id={id} />;
 }
